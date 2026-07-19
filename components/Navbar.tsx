@@ -35,61 +35,76 @@ export default function Navbar() {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
-          transition={{ duration: .35 }}
+          transition={{ duration: 0.35 }}
           className="
-          fixed
-          top-6
-          left-1/2
-          -translate-x-1/2
-          z-50
+            fixed
+            top-4
+            left-1/2
+            -translate-x-1/2
+            z-50
+            w-[94%]
+            md:w-auto
+            flex
+            justify-center
           "
         >
           <div
             className="
-            glass
-            flex
-            items-center
-            gap-8
-            rounded-full
-            px-6
-            py-4
+              glass
+              flex
+              w-full
+              items-center
+              justify-between
+              rounded-full
+              px-4
+              py-3
+              md:w-auto
+              md:gap-8
+              md:px-6
+              md:py-4
             "
           >
+            {/* Logo */}
             <Link
               href="#home"
-              className="font-semibold"
+              className="
+                whitespace-nowrap
+                text-sm
+                font-semibold
+                md:text-base
+              "
             >
               Abhishek
             </Link>
 
-            <div className="flex gap-6">
-
+            {/* Desktop Links */}
+            <div className="hidden md:flex gap-6">
               {links.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
                   className="
-                  text-sm
-                  text-secondary
-                  transition
-                  hover:text-white
+                    text-sm
+                    text-secondary
+                    transition
+                    hover:text-white
                   "
                 >
                   {link.name}
                 </Link>
               ))}
-
             </div>
 
+            {/* Theme Toggle */}
             <button
               onClick={() =>
                 setTheme(theme === "dark" ? "light" : "dark")
               }
               className="
-              rounded-full
-              p-2
-              hover:bg-white/10
-              transition
+                rounded-full
+                p-2.5
+                transition
+                hover:bg-white/10
               "
             >
               {theme === "dark" ? (
@@ -98,7 +113,6 @@ export default function Navbar() {
                 <Moon size={18} />
               )}
             </button>
-
           </div>
         </motion.nav>
       )}
