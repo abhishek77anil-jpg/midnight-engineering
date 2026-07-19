@@ -27,141 +27,151 @@ export default function MobileMenu({
 }: Props) {
   return (
     <>
-      {/* Mobile Top Bar */}
-      <div className="glass flex items-center justify-between rounded-full px-4 py-3 md:hidden">
-        <button
-          onClick={() => setOpen(true)}
-          className="rounded-full p-2 transition hover:bg-white/10"
-        >
-          <Menu size={22} />
-        </button>
+      {/* Mobile Navbar */}
+      {!open && (
+        <div className="glass flex items-center justify-between rounded-full px-4 py-3 md:hidden">
+          <button
+            onClick={() => setOpen(true)}
+            className="rounded-full p-2 transition hover:bg-white/10"
+          >
+            <Menu size={22} />
+          </button>
 
-        <Link
-          href="#home"
-          onClick={() => setOpen(false)}
-          className="font-semibold"
-        >
-          Abhishek
-        </Link>
+          <Link
+            href="#home"
+            className="font-semibold"
+          >
+            Abhishek
+          </Link>
 
-        <button
-          onClick={() =>
-            setTheme(theme === "dark" ? "light" : "dark")
-          }
-          className="rounded-full p-2 transition hover:bg-white/10"
-        >
-          {theme === "dark" ? (
-            <Sun size={18} />
-          ) : (
-            <Moon size={18} />
-          )}
-        </button>
-      </div>
+          <button
+            onClick={() =>
+              setTheme(theme === "dark" ? "light" : "dark")
+            }
+            className="rounded-full p-2 transition hover:bg-white/10"
+          >
+            {theme === "dark" ? (
+              <Sun size={18} />
+            ) : (
+              <Moon size={18} />
+            )}
+          </button>
+        </div>
+      )}
 
-      {/* Fullscreen Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="
-              fixed
-              inset-0
-              z-[100]
-              bg-black/70
-              backdrop-blur-xl
-              md:hidden
-            "
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-2xl md:hidden"
           >
-            <motion.div
-              initial={{ y: -40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -40, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="
-                flex
-                h-full
-                flex-col
-                px-8
-                py-10
-              "
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute right-6 top-6 rounded-full p-3 text-white transition hover:bg-white/10"
             >
-              {/* Header */}
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold">
-                  Midnight Engineering
-                </h2>
+              <X size={30} />
+            </button>
 
-                <button
-                  onClick={() => setOpen(false)}
-                  className="
-                    rounded-full
-                    p-2
-                    hover:bg-white/10
-                  "
-                >
-                  <X size={26} />
-                </button>
-              </div>
+            <div className="flex min-h-screen flex-col items-center justify-center px-6">
+              <motion.div
+                initial={{ opacity: 0, y: -15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35 }}
+                className="mb-10 text-center"
+              >
+                <h1 className="font-heading text-4xl font-bold tracking-tight">
+                  Midnight
+                </h1>
 
-              {/* Links */}
-              <div className="mt-20 flex flex-col gap-8">
+                <h1 className="font-heading text-4xl font-bold tracking-tight">
+                  Engineering
+                </h1>
+
+                <p className="mt-3 text-sm text-neutral-400">
+                  Biomedical Engineering × Artificial Intelligence
+                </p>
+
+                <div className="mx-auto mt-6 h-px w-24 rounded-full bg-white/10" />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.15 }}
+                className="
+                  w-full
+                  max-w-sm
+                  rounded-3xl
+                  border
+                  border-white/10
+                  bg-neutral-900/95
+                  shadow-2xl
+                  overflow-hidden
+                "
+              >
                 {links.map((link, index) => (
                   <motion.div
                     key={link.name}
-                    initial={{ opacity: 0, x: -25 }}
+                    initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: 0.08 * index,
-                    }}
+                    transition={{ delay: 0.2 + index * 0.08 }}
+                    className="border-b border-white/10 last:border-b-0"
                   >
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
                       className="
+                        block
+                        py-6
+                        text-center
                         text-3xl
-                        font-semibold
-                        transition
-                        hover:text-white
+                        font-heading
+                        font-bold
+                        text-white
+                        transition-all
+                        duration-300
+                        hover:bg-white/5
                       "
                     >
                       {link.name}
                     </Link>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
-              {/* Footer */}
-              <div className="mt-auto">
-                <button
-                  onClick={() =>
-                    setTheme(theme === "dark" ? "light" : "dark")
-                  }
-                  className="
-                    glass
-                    flex
-                    items-center
-                    gap-3
-                    rounded-full
-                    px-5
-                    py-3
-                  "
-                >
-                  {theme === "dark" ? (
-                    <>
-                      <Sun size={18} />
-                      Light Mode
-                    </>
-                  ) : (
-                    <>
-                      <Moon size={18} />
-                      Dark Mode
-                    </>
-                  )}
-                </button>
-              </div>
-            </motion.div>
+              <button
+                onClick={() =>
+                  setTheme(theme === "dark" ? "light" : "dark")
+                }
+                className="
+                  mt-8
+                  glass
+                  flex
+                  items-center
+                  gap-3
+                  rounded-full
+                  px-6
+                  py-3
+                  transition
+                  hover:bg-white/10
+                "
+              >
+                {theme === "dark" ? (
+                  <>
+                    <Sun size={18} />
+                    Light Mode
+                  </>
+                ) : (
+                  <>
+                    <Moon size={18} />
+                    Dark Mode
+                  </>
+                )}
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
